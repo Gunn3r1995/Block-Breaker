@@ -6,9 +6,9 @@ namespace Assets.Scripts
     {
         private static MusicPlayer _instance = null;
 
-        // Use this for initialization
-        void Start()
+        private void Awake()
         {
+            Debug.Log("Music Player Awake: " + GetInstanceID());
             if (_instance)
             {
                 Destroy(gameObject);

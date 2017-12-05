@@ -10,6 +10,18 @@ namespace Assets.Scripts
             SceneManager.LoadScene(sceneName);
         }
 
+        public void LoadNextLevel()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+        }
+
+        public void BrickDestroyed()
+        {
+            if (Brick.BreakableCount <= 0) {
+                LoadNextLevel();
+            }
+        }
+
         public void QuitRequest()
         {
             Debug.Log("I want to quit!");
