@@ -7,6 +7,7 @@ namespace Assets.Scripts
         public AudioClip crack;
         public Sprite[] HitSprites;
         public static int BreakableCount = 0;
+        public GameObject Smoke;
 
         private int _timesHits;
         private LevelManager _levelManager;
@@ -22,7 +23,7 @@ namespace Assets.Scripts
                 print(BreakableCount);
             }
             _timesHits = 0;
-            _levelManager = GameObject.FindObjectOfType<LevelManager>();
+            _levelManager = FindObjectOfType<LevelManager>();
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -42,6 +43,7 @@ namespace Assets.Scripts
             {
                 BreakableCount--;
                 _levelManager.BrickDestroyed();
+                PuffSmoke();
                 Destroy(gameObject);
             }
             else
@@ -50,12 +52,21 @@ namespace Assets.Scripts
             }
         }
 
+        private void PuffSmoke() {
+            var smokePuff = Instantiate(Smoke, gameObject.transform.position, Quaternion.identity);
+            var smokePuffStartColor = smokePuff.GetComponent<ParticleSystem>().main.startColor;
+			smokePuffStartColor = gameObject.GetComponent<SpriteRenderer>().color;
+        }
+
         private void LoadSprites()
         {
             var spriteIndex = _timesHits - 1;
             if (HitSprites[spriteIndex])
             {
                 GetComponent<SpriteRenderer>().sprite = HitSprites[spriteIndex];
+            }
+            else {
+                Debug.LogError("Error Brick Sprite doesn't exist at index: " + spriteIndex);
             }
         }
 

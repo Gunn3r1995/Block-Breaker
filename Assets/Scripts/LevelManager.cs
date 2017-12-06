@@ -7,11 +7,13 @@ namespace Assets.Scripts
 
         public void LoadLevel(string sceneName) {
             Debug.Log("Level load requested for: " + sceneName);
+			Brick.BreakableCount = 0;
             SceneManager.LoadScene(sceneName);
         }
 
         public void LoadNextLevel()
         {
+			Brick.BreakableCount = 0;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
         }
 

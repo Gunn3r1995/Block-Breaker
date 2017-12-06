@@ -14,7 +14,7 @@ namespace Assets.Scripts
 
         private void OnTriggerEnter2D(Collider2D trigger)
         {
-            _levelManager = GameObject.FindObjectOfType<LevelManager>();
+            _levelManager = FindObjectOfType<LevelManager>();
             _levelManager.LoadLevel("Lose Screen");
         }
     }
